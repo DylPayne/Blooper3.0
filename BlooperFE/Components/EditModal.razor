@@ -1,0 +1,29 @@
+﻿@using BlooperFE.Data
+@using Newtonsoft.Json
+@using Data
+@using Providers
+@using Hubs
+@using Components
+
+<div class="main">
+    <div class="form">
+        <input @bind-value="Value" class="edit-input" />
+        <button @onclick="Save_Click" class="edit-btn">Save</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Value { get; set; }
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    private async Task Save_Click()
+    {
+        await BlazoredModal.CancelAsync(ModalResult.Ok(Value));
+    }
+    private async Task Cancel()
+    {
+        await BlazoredModal.CancelAsync();
+    }
+}

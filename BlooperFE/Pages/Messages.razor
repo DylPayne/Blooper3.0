@@ -1,0 +1,168 @@
+﻿@page "/chat/{from_id}"
+@using BlooperFE.Data
+@using Newtonsoft.Json
+@using Data
+@using Providers
+@using Hubs
+@using Components
+@using System.Security.Claims
+@using Microsoft.AspNetCore.SignalR.Client
+
+@inject HttpClient client
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Blooper Messages</PageTitle>
+
+<div class="main">
+    <AuthorizeView>
+        <Authorized>
+            @if (messages is null)
+            {
+                <p>Loading messages...</p>
+            }
+            else
+            {
+                <div class="messages-container">
+                    <p>@isConnected</p>
+                    @{int i = 0;}
+                    @foreach (MessageModel message in messages)
+                    {
+                        if (message.from_id.ToString() == to_id)
+                        {
+                            <div class="message-parent">
+                                <p>@message.text</p>
+                                <div class="message-btns">
+                                    @{int index = i;}
+                                    <button class="edit-btn" @onclick="() => EditMessage(index)">Edit</button>
+                                    <button class="delete-btn" @onclick="() => DeleteMessageById(index)">Delete</button>
+                                    @i
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="message-parent-from">
+                                <p>@message.text</p>
+                                <div class="message-btns">  
+                                    @{int index = i;}
+                                    <button class="delete-btn" @onclick="() => DeleteMessageById(index)">Delete</button>
+                                    @i
+                                </div>                                
+                            </div>
+                        }
+                        i++;
+                    }
+                    <a id="bottom-message" />
+                    <div class="input-container">
+                        <EditForm Model="@message" Context="formMessage" class="message-form" OnSubmit="@SendMessage">
+                            <InputText @bind-Value="@message.text" class="message-input" />
+                            <button type="submit" class="message-send">Send</button>
+                        </EditForm>
+                    </div>
+                </div>
+            }
+            <button @onclick="ShowModal" class="edit-btn">Show Sensored Words</button>
+        </Authorized>
+        <NotAuthorized>
+            <p>Please login</p>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    public string to_id { get; set; }
+    List<MessageModel> messages { get; set; } = new List<MessageModel>();
+
+    MessageForm message = new MessageForm();
+    public class MessageForm { public string text { get; set; } }
+
+    [Parameter]
+    public string from_id { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Console.WriteLine("Init messages");
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            to_id = user.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            messages.Add(new MessageModel("Hello", from_id, to_id));
+            messages.Add(new MessageModel("Hi", to_id, from_id));
+        }
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/messagehub"))
+            .Build();
+        hubConnection.On<int, string, string>("ReceiveMessage", (from_id, to_id, text) =>
+        {
+            jsRuntime.InvokeVoidAsync("console.log", "Received message!");
+            messages.Add(new MessageModel(text, from_id.ToString(), to_id));
+            InvokeAsync(StateHasChanged);
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    public async Task EditMessage(int i)
+    {
+        jsRuntime.InvokeVoidAsync("console.log", $"index: {i}");
+        var text = messages[i].text;
+        var parameters = new ModalParameters().Add("Value", text);
+
+
+
+        var modal = Modal.Show<EditModal>("Edit Message");
+        var editedText = await modal.Result;
+        jsRuntime.InvokeVoidAsync("console.log", $"Edited text: {editedText.Data.ToString()}");
+
+        if (editedText.Confirmed)
+        {
+            messages[i].text = editedText.Data.ToString();
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public async Task DeleteMessageById(int i)
+    {
+        messages.RemoveAt(i);
+    }
+
+    protected async Task SendMessage()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("SendMessage", from_id, to_id, message.text);
+            jsRuntime.InvokeVoidAsync("console.log", "Sent message");
+            messages.Add(new MessageModel(message.text, from_id, to_id));
+        }
+    }
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+    private async Task ShowModal()
+    {
+        Modal.Show<WordsModal>("Sensored Words");
+    }
+
+    public bool isConnected =>
+        hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}
