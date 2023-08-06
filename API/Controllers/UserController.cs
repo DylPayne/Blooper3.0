@@ -55,6 +55,11 @@ namespace API.Controllers
             {
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
+                if (!reader.HasRows)
+                {
+                    connection.Close();
+                    return BadRequest($"User {username} does not exist!");
+                }
                 User user = new User(reader.GetInt32(0), reader.GetString(1));
                 connection.Close();
                 return Ok(user);
