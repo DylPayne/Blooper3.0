@@ -140,12 +140,21 @@
 
     protected async Task SendMessage()
     {
-        if (hubConnection is not null)
+        var apiName = $"message/get-message?text=${message.text}";
+        var httpResonse = await client.GetAsync(apiName);
+
+        if (httpResonse.IsSuccessStatusCode)
         {
-            await hubConnection.SendAsync("SendMessage", from_id, to_id, message.text);
-            jsRuntime.InvokeVoidAsync("console.log", "Sent message");
-            messages.Add(new MessageModel(message.text, from_id, to_id));
+            var blooperMessage = JsonConvert.DeserializeObject<string>(await httpResonse.Content.ReadAsStringAsync());
+            if (hubConnection is not null)
+                {
+                    await hubConnection.SendAsync("SendMessage", from_id, to_id, blooperMessage);
+                    jsRuntime.InvokeVoidAsync("console.log", "Sent message");
+                    messages.Add(new MessageModel(blooperMessage, from_id, to_id));
+                }
         }
+
+        
     }
 
     [CascadingParameter]

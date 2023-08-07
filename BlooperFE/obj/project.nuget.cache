@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Un42i7opqHMN2qBEo2H7TKlEXW3izd7atmM1OJUqxOFDxcYslepw/yeMTrQLuB8SOUZ1Fa0tG/Qc9Yekl26bdA==",
+  "dgSpecHash": "SLAzZwwT0FrEGPXkuU0g9HN5yTfWCx96NSxME7sk+sSaWPldOW3A412T/nQNC/jEVzuI6+7Fb2CVSlu9kwNdwg==",
   "success": true,
-  "projectFilePath": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\BlooperFE.csproj",
+  "projectFilePath": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\BlooperFE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dylan\\.nuget\\packages\\blazored.modal\\7.1.0\\blazored.modal.7.1.0.nupkg.sha512",
     "C:\\Users\\dylan\\.nuget\\packages\\blazored.sessionstorage\\2.3.0\\blazored.sessionstorage.2.3.0.nupkg.sha512",

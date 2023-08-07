@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yU220KflPbWlATnowCOrDUD5h9AM90RCG6MkxP379Z4=",
+  "Hash": "8z0zzcrmM4VhU7g+bFhUxZPf7OPeWEZX38AufAnhbfA=",
   "Source": "BlooperFE",
   "BasePath": "_content/BlooperFE",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "BlooperFE\\wwwroot",
       "Source": "BlooperFE",
-      "ContentRoot": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\wwwroot\\",
+      "ContentRoot": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\wwwroot\\",
       "BasePath": "_content/BlooperFE",
       "Pattern": "**"
     }
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "C:\\Users\\dylan\\.nuget\\packages\\blazored.modal\\7.1.0\\staticwebassets\\BlazoredModal.razor.js"
     },
     {
-      "Identity": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlooperFE.styles.css",
+      "Identity": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlooperFE.styles.css",
       "SourceId": "BlooperFE",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/BlooperFE",
       "RelativePath": "BlooperFE.styles.css",
       "AssetKind": "All",
@@ -65,13 +65,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlooperFE.styles.css"
+      "OriginalItemSpec": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\bundle\\BlooperFE.styles.css"
     },
     {
-      "Identity": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlooperFE.bundle.scp.css",
+      "Identity": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlooperFE.bundle.scp.css",
       "SourceId": "BlooperFE",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/BlooperFE",
       "RelativePath": "BlooperFE.bundle.scp.css",
       "AssetKind": "All",
@@ -82,13 +82,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlooperFE.bundle.scp.css"
+      "OriginalItemSpec": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BlooperFE.bundle.scp.css"
     },
     {
-      "Identity": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\wwwroot\\css\\site.css",
+      "Identity": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\wwwroot\\css\\site.css",
       "SourceId": "BlooperFE",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\wwwroot\\",
+      "ContentRoot": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\wwwroot\\",
       "BasePath": "_content/BlooperFE",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\wwwroot\\favicon.png",
+      "Identity": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\wwwroot\\favicon.png",
       "SourceId": "BlooperFE",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Dev\\Flash\\Blooper2.0\\BlooperFE\\wwwroot\\",
+      "ContentRoot": "D:\\Dev\\Flash\\Blooper3.0\\BlooperFE\\wwwroot\\",
       "BasePath": "_content/BlooperFE",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

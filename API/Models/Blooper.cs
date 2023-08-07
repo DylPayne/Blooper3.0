@@ -3,12 +3,12 @@
     public class Blooper
     {
         public int id { get; set; }
-        public string name { get; set; }
+        public string word { get; set; }
 
-        public Blooper(int id, string name)
+        public Blooper(int id, string word)
         {
             this.id = id;
-            this.name = name;
+            this.word = word;
         }
 
         public Blooper()
