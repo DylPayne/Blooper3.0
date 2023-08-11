@@ -2,6 +2,7 @@
 @using BlooperFE.Data
 @using Newtonsoft.Json
 @using Data
+@using Services
 @using Providers
 @using Hubs
 @using Components
@@ -12,6 +13,7 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime jsRuntime
+@inject MessageService messageService
 
 <PageTitle>Blooper Messages</PageTitle>
 
@@ -138,23 +140,13 @@
         messages.RemoveAt(i);
     }
 
+    private MessageModel _message;
     protected async Task SendMessage()
     {
-        var apiName = $"message/get-message?text=${message.text}";
-        var httpResonse = await client.GetAsync(apiName);
-
-        if (httpResonse.IsSuccessStatusCode)
-        {
-            var blooperMessage = JsonConvert.DeserializeObject<string>(await httpResonse.Content.ReadAsStringAsync());
-            if (hubConnection is not null)
-                {
-                    await hubConnection.SendAsync("SendMessage", from_id, to_id, blooperMessage);
-                    jsRuntime.InvokeVoidAsync("console.log", "Sent message");
-                    messages.Add(new MessageModel(blooperMessage, from_id, to_id));
-                }
-        }
-
-        
+        MessageModel _preMessage = new MessageModel(message.text, to_id, from_id);
+        var _text = await MessageService.PostMessageAsync(_preMessage);
+        _message = new MessageModel(_text, from_id, to_id);
+        messages.Add(_message);    
     }
 
     [CascadingParameter]

@@ -4,8 +4,9 @@
 @using Providers
 @using Hubs
 @using Components
+@using BlooperFE.Services
 
-
+@inject BlooperService blooperService
 @inject HttpClient client
 
 <div class="main">
@@ -16,7 +17,7 @@
     else
     {
         <ul class="words-parent">
-            @foreach (Blooper blooper in bloopers)
+            @foreach (BlooperModel blooper in bloopers)
             {
                 <li class="word">@blooper.word</li>
             }
@@ -32,18 +33,10 @@
         public string word { get; set; }
     }
 
-    List<Blooper> bloopers = new List<Blooper>();
+    List<BlooperModel> bloopers = new List<BlooperModel>();
 
     protected override async Task OnInitializedAsync()
     {
-        bloopers = await GetBloopers();
-    }
-
-    private async Task<List<Blooper>> GetBloopers()
-    {
-        var response = await client.GetAsync($"Bloopers");
-        var content = await response.Content.ReadAsStringAsync();
-        var responseBloopers = JsonConvert.DeserializeObject<List<Blooper>>(content);
-        return responseBloopers;
+        bloopers = await blooperService.GetBloopersAsync();
     }
 }

@@ -2,7 +2,7 @@
 {
     public class BlooperModel
     {
-        int id { get; set; }
-        string name { get; set; }
+        public int id { get; set; }
+        public string word { get; set; }
     }
 }
